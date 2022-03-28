@@ -1,0 +1,38 @@
+# roles/ansible-role-vault_profile/tasks/main.yaml
+- name: Creating Vault profile.d
+  ansible.builtin.template:
+    src: vault_cluster.sh.j2
+    dest: '/etc/profile.d/vault_cluster.sh'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+- name: Creating Vault log directory
+  ansible.builtin.file:
+    state: directory
+    path: '{{ vault_log_dir }}'
+    owner: '{{ vault_user }}'
+    group: '{{ vault_group }}'
+    mode: '0750'
+
+- name: Creating Vault logrotate config
+  ansible.builtin.template:
+    src: logrotate_vault.conf.j2
+    dest: vault_logrotate_config_filepath
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+- name: Debug
+  ansible.builtin.debug:
+    var: disable_tls
+
+- name: Installing Vault CA cert to system
+  ansible.builtin.copy:
+    remote_src: yes
+    src: '/opt/vault/tls/ca.crt'
+    dest: '/etc/ssl/certs/vault_ca.pem'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  when: disable_tls

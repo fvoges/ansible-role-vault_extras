@@ -1,0 +1,27 @@
+# This file would normally be /etc/logrotate.d/vault.conf
+
+# With these settings, your audit folder will like
+# .
+# ├── audit.2018-09-10.log.gz
+# ├── audit.2018-09-11.log
+# └── audit.log
+
+# Change the path below to your own audit log path.
+{{ vault_log_dir }}/{{ vault_log_file_name }}.{{ vault_log_file_ext }} {
+  rotate {{ vault_logrotate_retention }}
+  daily
+  # Do not execute rotate if the log file is empty.
+  notifempty
+  missingok
+  compress
+  # Set compress on next rotate cycl to prevent entry loss when performing compression.
+  delaycompress
+  postrotate
+    # If you do not use systemctl. you can send SIGHUP to vault's process to achieve same goal.
+    /usr/bin/systemctl reload vault 2> /dev/null || true
+  endscript
+  extension {{ vault_log_file_ext }}
+  dateext
+  dateformat %Y-%m-%d.
+}
+
