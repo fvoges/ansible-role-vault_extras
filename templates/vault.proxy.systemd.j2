@@ -1,0 +1,8 @@
+[Service]
+{% if vault_proxy_http is defined and vault_proxy_http != '' %}
+Environment=http_proxy="{{ vault_proxy_http }}"
+Environment=https_proxy="{{ vault_proxy_https|default(vault_proxy_http, true) }}"
+{% if vault_proxy_no_proxy is defined and vault_proxy_no_proxy != '' %}
+Environment=no_proxy="{{ vault_proxy_no_proxy }}"
+{% endif %}
+{% endif %}

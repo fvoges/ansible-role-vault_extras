@@ -5,3 +5,9 @@
 - name: Update RHEL system certs
   ansible.builtin.command:
     cmd: update-ca-trust
+
+- name: Reload Vault daemon
+  systemd:
+    name: vault
+    state: restarted
+    daemon_reload: true

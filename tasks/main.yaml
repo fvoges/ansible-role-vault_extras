@@ -55,3 +55,25 @@
     - vault_system_vault_ca_cert == true
     - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
   notify: Update RHEL system certs
+
+- name: Creating Vault systemd overrides directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/vault.service.d
+    state: directory
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  when:
+    vault_enable_proxy == true
+
+- name: Templating out Vault systemd proxy override
+  ansible.builtin.template:
+    src: vault.proxy.systemd.j2
+    dest: /etc/systemd/system/vault.service.d/proxy.conf
+    owner: root
+    group: root
+    mode: '0644'
+  when:
+    vault_enable_proxy == true
+  notify:
+    - Reload Vault daemon
