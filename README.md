@@ -10,9 +10,13 @@ This is a simple Ansible Role that complements [jacobmammoliti/ansible-role-vaul
 
 Some of the variables use the same name as [jacobmammoliti/ansible-role-vault](https://github.com/jacobmammoliti/ansible-role-vault) for simplicity.
 
+### `vault_enable_bash_profile`
+
+- Create `/etc/profile.d/vault_cluster.sh`
+- default: true
 ### `disable_tls`
 
-- Use `http` or `https` for the `VAULT_ADDR` url
+- Use `http` or `https` for the `VAULT_ADDR` URL in the bash profile
 - Default value: true
 
 ### `vault_user`
@@ -50,3 +54,7 @@ Some of the variables use the same name as [jacobmammoliti/ansible-role-vault](h
 - Vault audit log retention (in days)
 - Default value: 30
 
+### `vault_system_vault_ca_cert`
+
+- Install Vault CA cert to the OS trust store
+- Default value: false

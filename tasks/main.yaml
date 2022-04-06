@@ -6,6 +6,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
+  when: vault_enable_bash_profile == true
 
 - name: Creating Vault log directory
   ansible.builtin.file:
@@ -31,8 +32,26 @@
   ansible.builtin.copy:
     remote_src: yes
     src: '/opt/vault/tls/ca.crt'
-    dest: '/etc/ssl/certs/vault_ca.pem'
+    dest: '/usr/share/ca-certificates/vault_ca.pem'
     owner: 'root'
     group: 'root'
     mode: '0644'
-  when: disable_tls
+  when:
+    - disable_tls == false
+    - vault_system_vault_ca_cert == true
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  notify: Update Debian system certs
+
+- name: Installing Vault CA cert to system
+  ansible.builtin.copy:
+    remote_src: yes
+    src: '/opt/vault/tls/ca.crt'
+    dest: '/etc/pki/ca-trust/source/anchors/vault_ca.pem'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  when:
+    - disable_tls == false
+    - vault_system_vault_ca_cert == true
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+  notify: Update RHEL system certs

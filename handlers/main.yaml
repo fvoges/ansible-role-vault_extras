@@ -1,0 +1,7 @@
+- name: Update Debian system certs
+  ansible.builtin.command:
+    cmd: update-ca-certificates
+
+- name: Update RHEL system certs
+  ansible.builtin.command:
+    cmd: update-ca-trust

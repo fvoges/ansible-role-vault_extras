@@ -1,4 +1,5 @@
 ---
+vault_enable_bash_profile: true
 disable_tls: true
 vault_user: vault
 vault_group: vault
@@ -8,3 +9,4 @@ vault_log_file_name: audit
 vault_log_file_ext: log
 vault_logrotate_config_filepath: /etc/logrotate.d/vault.conf
 vault_logrotate_retention: 30
+vault_system_vault_ca_cert: false

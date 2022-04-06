@@ -1,1 +1,1 @@
-export VAULT_ADDR="https://{{ ansible_fqdn }}:8200"
+export VAULT_ADDR="http{% if disable_tls == false %}s{% endif %}://{{ ansible_fqdn }}:8200"
