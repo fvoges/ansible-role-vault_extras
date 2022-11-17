@@ -19,7 +19,7 @@
 - name: Creating Vault logrotate config
   ansible.builtin.template:
     src: logrotate_vault.conf.j2
-    dest: vault_logrotate_config_filepath
+    dest: '{{vault_logrotate_config_filepath}}'
     owner: 'root'
     group: 'root'
     mode: '0644'
