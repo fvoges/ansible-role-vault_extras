@@ -6,6 +6,10 @@ This is a simple Ansible Role that complements [jacobmammoliti/ansible-role-vaul
 - Manages `/var/log/vault`
 - Configures `logrotate` to rotate Vault's audit log
 
+## Dependencies
+
+This Role uses [geerlingguy.fluentd](https://galaxy.ansible.com/geerlingguy/fluentd)
+
 ## Role variables
 
 Some of the variables use the same name as [jacobmammoliti/ansible-role-vault](https://github.com/jacobmammoliti/ansible-role-vault) for simplicity.
@@ -14,6 +18,7 @@ Some of the variables use the same name as [jacobmammoliti/ansible-role-vault](h
 
 - Create `/etc/profile.d/vault_cluster.sh`
 - default: true
+
 ### `disable_tls`
 
 - Use `http` or `https` for the `VAULT_ADDR` URL in the bash profile
@@ -80,6 +85,7 @@ Some of the variables use the same name as [jacobmammoliti/ansible-role-vault](h
 - Default value: undefined
 
 ## Additional information
+
 ### Overriding `systemd` to expose environment variables
 
 The official way to do this is manually, is to run `systemctl edit myservice`, which will create an override file for you or let you edit an existing one.
@@ -104,6 +110,7 @@ There's a lot of "copy & paste" information on the internet, where people say th
 This Ansible Role uses the lower case versions of the environment variables, as these seem to be the "proper" ones.
 
 Below, you can see a summary of how these variables work in common situations (shamelessly copied from the article above).
+
 #### `http_proxy`, `https_proxy`, `HTTP_PROXY`, and  `HTTPS_PROXY`
 
 | curl            | wget      | Ruby           | Python        | Go                                 |
