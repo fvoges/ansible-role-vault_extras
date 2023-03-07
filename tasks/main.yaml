@@ -32,7 +32,7 @@
   ansible.builtin.copy:
     remote_src: yes
     src: '/opt/vault/tls/ca.crt'
-    dest: '/usr/share/ca-certificates/vault_ca.pem'
+    dest: '/usr/local/share/ca-certificates/vault_ca.crt'
     owner: 'root'
     group: 'root'
     mode: '0644'
@@ -46,7 +46,7 @@
   ansible.builtin.copy:
     remote_src: yes
     src: '/opt/vault/tls/ca.crt'
-    dest: '/etc/pki/ca-trust/source/anchors/vault_ca.pem'
+    dest: '/etc/pki/ca-trust/source/anchors/vault_ca.crt'
     owner: 'root'
     group: 'root'
     mode: '0644'
