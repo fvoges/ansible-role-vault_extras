@@ -123,6 +123,8 @@ Below, you can see a summary of how these variables work in common situations (s
 
 #### `no_proxy`, and  `NO_PROXY`
 
+Comma or space-separated list of hosts/domains to connect directly.
+
 |                        | curl      | wget           | Ruby      | Python    | Go        |
 |------------------------|-----------|----------------|-----------|-----------|-----------|
 | no_proxy               | Yes       | Yes            | Yes       | Yes       | Yes       |
